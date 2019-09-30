@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MusicAppXamarinForms.Views.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    Title="{Binding Title}"
+    BackgroundColor="#E8E8E8">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <pancakeView:PancakeView
+            Grid.Row="0"
+            Margin="0,20,0,0"
+            CornerRadius="125"
+            Elevation="25"
+            HasShadow="True"
+            HeightRequest="365"
+            HorizontalOptions="Center"
+            WidthRequest="250" />
+
+        <pancakeView:PancakeView
+            Grid.Row="0"
+            Margin="0,-1,0,0"
+            BorderColor="#70757F"
+            BorderThickness="1"
+            CornerRadius="0,0,125,125"
+            HeightRequest="365"
+            HorizontalOptions="Center"
+            VerticalOptions="Start"
+            WidthRequest="250">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Image
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    Aspect="AspectFill"
+                    HorizontalOptions="Fill"
+                    IsVisible="True"
+                    Source="band"
+                    VerticalOptions="Fill" />
+
+                <pancakeView:PancakeView
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    BackgroundGradientEndColor="Black"
+                    BackgroundGradientStartColor="Transparent" />
+                <Label
+                    Grid.Row="1"
+                    Margin="0,20,0,0"
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="Daylight"
+                    TextColor="White"
+                    VerticalOptions="End" />
+                <Label
+                    Grid.Row="2"
+                    Margin="0,0,0,47"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="Center"
+                    Text="Matt and Kim"
+                    TextColor="White"
+                    VerticalOptions="End" />
+            </Grid>
+        </pancakeView:PancakeView>
+
+        <StackLayout
+            Grid.Row="1"
+            HorizontalOptions="Center"
+            Orientation="Horizontal"
+            Spacing="17"
+            Padding="0,0,0,35"
+            VerticalOptions="End">
+            <pancakeView:PancakeView
+                Padding="0"
+                BackgroundColor="Black"
+                HeightRequest="36"
+                WidthRequest="36"
+                CornerRadius="36"
+                Elevation="25"
+                HasShadow="True"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>
