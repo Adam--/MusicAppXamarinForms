@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Prism;
 using Prism.Ioc;
+using Xamarin.Forms;
 
 namespace MusicAppXamarinForms.Droid
 {
@@ -16,7 +17,8 @@ namespace MusicAppXamarinForms.Droid
 
             base.OnCreate(bundle);
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+            Forms.SetFlags("CollectionView_Experimental");
+            Forms.Init(this, bundle);
             LoadApplication(new App(new AndroidInitializer()));
         }
     }

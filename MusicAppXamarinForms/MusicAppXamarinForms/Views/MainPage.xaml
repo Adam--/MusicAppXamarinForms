@@ -3,26 +3,34 @@
     x:Class="MusicAppXamarinForms.Views.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:viewModels="clr-namespace:MusicAppXamarinForms.ViewModels;assembly=MusicAppXamarinForms"
     Title="{Binding Title}"
-    BackgroundColor="#E8E8E8">
+    d:DataContext="{d:DesignInstance viewModels:MainPageViewModel,
+                                     IsDesignTimeCreatable=True}"
+    BackgroundColor="#E8E8E8"
+    mc:Ignorable="d">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.3*" />
+            <RowDefinition Height="2.5*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <!--  Now playing  -->
         <pancakeView:PancakeView
             Grid.Row="0"
             Margin="0,25,0,0"
             CornerRadius="125"
             Elevation="25"
             HasShadow="True"
-            VerticalOptions="Fill"
             HorizontalOptions="Center"
+            VerticalOptions="Fill"
             WidthRequest="250" />
 
         <pancakeView:PancakeView
@@ -44,7 +52,7 @@
                     Aspect="AspectFill"
                     HorizontalOptions="Fill"
                     IsVisible="True"
-                    Source="band"
+                    Source="{Binding NowPlayingImageSource}"
                     VerticalOptions="Fill" />
 
                 <pancakeView:PancakeView
@@ -58,7 +66,7 @@
                     FontAttributes="Bold"
                     FontSize="18"
                     HorizontalOptions="Center"
-                    Text="Daylight"
+                    Text="{Binding SongTitle}"
                     TextColor="White"
                     VerticalOptions="End" />
                 <Label
@@ -67,15 +75,38 @@
                     FontAttributes="Bold"
                     FontSize="12"
                     HorizontalOptions="Center"
-                    Text="Matt and Kim"
+                    Text="{Binding Artist}"
                     TextColor="White"
                     VerticalOptions="End" />
             </Grid>
         </pancakeView:PancakeView>
 
+        <!--  Tracks  -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding AlbumTracks}" Margin="0,-27,0,12">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="37,5">
+                        <Label
+                            FontSize="12"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Start"
+                            Text="{Binding Title}"
+                            TextColor="Black" />
+                        <Label
+                            FontSize="12"
+                            HorizontalOptions="End"
+                            Text="{Binding Duration}"
+                            TextColor="Black" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+        <!--  Playback controls  -->
         <Grid
-            Grid.Row="1"
-            Padding="37,0,37,35"
+            Grid.Row="2"
+            Padding="27,0,27,35"
             VerticalOptions="End">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
