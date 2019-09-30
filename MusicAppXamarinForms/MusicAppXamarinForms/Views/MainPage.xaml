@@ -10,30 +10,27 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1.3*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <pancakeView:PancakeView
             Grid.Row="0"
-            Margin="0,20,0,0"
+            Margin="0,25,0,0"
             CornerRadius="125"
             Elevation="25"
             HasShadow="True"
-            HeightRequest="365"
+            VerticalOptions="Fill"
             HorizontalOptions="Center"
             WidthRequest="250" />
 
         <pancakeView:PancakeView
             Grid.Row="0"
-            Margin="0,-1,0,0"
-            BorderColor="#70757F"
-            BorderThickness="2"
+            Margin="0,-1,0,25"
             CornerRadius="0,0,125,125"
-            HeightRequest="365"
             HorizontalOptions="Center"
-            VerticalOptions="Start"
+            VerticalOptions="Fill"
             WidthRequest="250">
             <Grid>
                 <Grid.RowDefinitions>
