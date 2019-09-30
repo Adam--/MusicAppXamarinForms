@@ -3,6 +3,7 @@
     x:Class="MusicAppXamarinForms.Views.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
     xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     Title="{Binding Title}"
     BackgroundColor="#E8E8E8">
@@ -28,7 +29,7 @@
             Grid.Row="0"
             Margin="0,-1,0,0"
             BorderColor="#70757F"
-            BorderThickness="1"
+            BorderThickness="2"
             CornerRadius="0,0,125,125"
             HeightRequest="365"
             HorizontalOptions="Center"
@@ -75,21 +76,68 @@
             </Grid>
         </pancakeView:PancakeView>
 
-        <StackLayout
+        <Grid
             Grid.Row="1"
-            HorizontalOptions="Center"
-            Orientation="Horizontal"
-            Spacing="17"
-            Padding="0,0,0,35"
+            Padding="37,0,37,35"
             VerticalOptions="End">
-            <pancakeView:PancakeView
-                Padding="0"
-                BackgroundColor="Black"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ImageButton
+                Grid.Column="0"
+                Padding="10"
+                BackgroundColor="#E8E8E8"
                 HeightRequest="36"
-                WidthRequest="36"
-                CornerRadius="36"
-                Elevation="25"
-                HasShadow="True"/>
-        </StackLayout>
+                HorizontalOptions="Start"
+                Source="shuffle"
+                VerticalOptions="Center" />
+            <StackLayout
+                Grid.Column="1"
+                Padding="0"
+                HorizontalOptions="Center"
+                Orientation="Horizontal"
+                Spacing="17"
+                VerticalOptions="End">
+                <ImageButton
+                    Padding="8"
+                    BackgroundColor="#E8E8E8"
+                    HeightRequest="36"
+                    Source="rewind" />
+                <pancakeView:PancakeView
+                    Padding="2,0,0,0"
+                    BackgroundColor="Black"
+                    CornerRadius="36"
+                    Elevation="25"
+                    HasShadow="True"
+                    HeightRequest="36"
+                    WidthRequest="34">
+                    <forms:AnimationView
+                        x:Name="PlayPause"
+                        Animation="215-play-pause.json"
+                        BackgroundColor="Black"
+                        HorizontalOptions="FillAndExpand"
+                        IsPlaying="False"
+                        Loop="False"
+                        OnClick="AnimationView_OnOnClick"
+                        VerticalOptions="FillAndExpand" />
+                </pancakeView:PancakeView>
+                <ImageButton
+                    Padding="8"
+                    BackgroundColor="#E8E8E8"
+                    HeightRequest="36"
+                    Source="fast_forward" />
+            </StackLayout>
+            <ImageButton
+                Grid.Column="2"
+                Padding="10"
+                BackgroundColor="#E8E8E8"
+                HeightRequest="36"
+                HorizontalOptions="End"
+                Source="repeat"
+                VerticalOptions="Center" />
+        </Grid>
     </Grid>
 </ContentPage>
