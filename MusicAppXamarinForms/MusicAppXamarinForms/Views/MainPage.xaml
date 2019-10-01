@@ -17,95 +17,105 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2.5*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--  Now playing  -->
-        <pancakeView:PancakeView
-            Grid.Row="0"
-            Margin="0,25,0,0"
-            CornerRadius="125"
-            Elevation="25"
-            HasShadow="True"
-            HorizontalOptions="Center"
-            VerticalOptions="Fill"
-            WidthRequest="250" />
+        <ScrollView Scrolled="ScrollView_OnScrolled">
+            <StackLayout Spacing="0">
+                <!--  Now playing  -->
+                <Grid Padding="0">
+                    <pancakeView:PancakeView
+                        Margin="0,25,0,0"
+                        CornerRadius="125"
+                        Elevation="25"
+                        HasShadow="True"
+                        HeightRequest="365"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Fill"
+                        WidthRequest="250" />
 
-        <pancakeView:PancakeView
-            Grid.Row="0"
-            Margin="0,-1,0,25"
-            CornerRadius="0,0,125,125"
-            HorizontalOptions="Center"
-            VerticalOptions="Fill"
-            WidthRequest="250">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Image
-                    Grid.Row="0"
-                    Grid.RowSpan="3"
-                    Aspect="AspectFill"
-                    HorizontalOptions="Fill"
-                    IsVisible="True"
-                    Source="{Binding NowPlayingImageSource}"
-                    VerticalOptions="Fill" />
+                    <pancakeView:PancakeView
+                        Margin="0,-1,0,25"
+                        CornerRadius="0,0,125,125"
+                        HeightRequest="365"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Fill"
+                        WidthRequest="250">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Image
+                                x:Name="BandImageView"
+                                Grid.Row="0"
+                                Grid.RowSpan="3"
+                                Aspect="AspectFill"
+                                HorizontalOptions="Fill"
+                                IsVisible="True"
+                                Source="{Binding NowPlayingImageSource}"
+                                VerticalOptions="Fill" />
 
-                <pancakeView:PancakeView
-                    Grid.Row="1"
-                    Grid.RowSpan="2"
-                    BackgroundGradientEndColor="Black"
-                    BackgroundGradientStartColor="Transparent" />
-                <Label
-                    Grid.Row="1"
-                    Margin="0,20,0,0"
-                    FontAttributes="Bold"
-                    FontSize="18"
-                    HorizontalOptions="Center"
-                    Text="{Binding SongTitle}"
-                    TextColor="White"
-                    VerticalOptions="End" />
-                <Label
-                    Grid.Row="2"
-                    Margin="0,0,0,47"
-                    FontAttributes="Bold"
-                    FontSize="12"
-                    HorizontalOptions="Center"
-                    Text="{Binding Artist}"
-                    TextColor="White"
-                    VerticalOptions="End" />
-            </Grid>
-        </pancakeView:PancakeView>
+                            <pancakeView:PancakeView
+                                Grid.Row="1"
+                                Grid.RowSpan="2"
+                                BackgroundGradientEndColor="Black"
+                                BackgroundGradientStartColor="Transparent" />
+                            <Label
+                                Grid.Row="1"
+                                Margin="0,20,0,0"
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                HorizontalOptions="Center"
+                                Text="{Binding SongTitle}"
+                                TextColor="White"
+                                VerticalOptions="End" />
+                            <Label
+                                Grid.Row="2"
+                                Margin="0,0,0,47"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                Text="{Binding Artist}"
+                                TextColor="White"
+                                VerticalOptions="End" />
+                        </Grid>
+                    </pancakeView:PancakeView>
+                </Grid>
 
-        <!--  Tracks  -->
-        <CollectionView Grid.Row="1" ItemsSource="{Binding AlbumTracks}" Margin="0,-27,0,12">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="37,5">
-                        <Label
-                            FontSize="12"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Start"
-                            Text="{Binding Title}"
-                            TextColor="Black" />
-                        <Label
-                            FontSize="12"
-                            HorizontalOptions="End"
-                            Text="{Binding Duration}"
-                            TextColor="Black" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
 
+                <!--  Tracks  -->
+                <CollectionView ItemsSource="{Binding AlbumTracks}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout
+                                Padding="37,17"
+                                HorizontalOptions="Fill"
+                                Orientation="Horizontal">
+                                <Label
+                                    FontSize="12"
+                                    HorizontalOptions="StartAndExpand"
+                                    Text="{Binding Title}"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    FontSize="12"
+                                    HorizontalOptions="End"
+                                    Text="{Binding Duration}"
+                                    TextColor="Black" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
+        </ScrollView>
 
         <!--  Playback controls  -->
         <Grid
-            Grid.Row="2"
+            Grid.Row="1"
             Padding="27,0,27,35"
             VerticalOptions="End">
             <Grid.ColumnDefinitions>
