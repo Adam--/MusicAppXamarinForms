@@ -12,7 +12,7 @@
     Title="{Binding Title}"
     d:DataContext="{d:DesignInstance viewModels:MainPageViewModel,
                                      IsDesignTimeCreatable=True}"
-    BackgroundColor="#E8E8E8"
+    BackgroundColor="{DynamicResource BackgroundColor}"
     mc:Ignorable="d">
 
     <Grid>
@@ -42,6 +42,9 @@
                         HorizontalOptions="Center"
                         VerticalOptions="Fill"
                         WidthRequest="250">
+                        <pancakeView:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
+                        </pancakeView:PancakeView.GestureRecognizers>
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
@@ -61,7 +64,7 @@
                             <pancakeView:PancakeView
                                 Grid.Row="1"
                                 Grid.RowSpan="2"
-                                BackgroundGradientEndColor="Black"
+                                BackgroundGradientEndColor="{DynamicResource ImageOverlayColor}"
                                 BackgroundGradientStartColor="Transparent" />
                             <Label
                                 Grid.Row="1"
@@ -69,8 +72,8 @@
                                 FontAttributes="Bold"
                                 FontSize="18"
                                 HorizontalOptions="Center"
-                                Text="{Binding SongTitle}"
-                                TextColor="White"
+                                Text="{Binding AlbumTitle}"
+                                TextColor="{DynamicResource ImageOverlayTextColor}"
                                 VerticalOptions="End" />
                             <Label
                                 Grid.Row="2"
@@ -79,7 +82,7 @@
                                 FontSize="12"
                                 HorizontalOptions="Center"
                                 Text="{Binding Artist}"
-                                TextColor="White"
+                                TextColor="{DynamicResource ImageOverlayTextColor}"
                                 VerticalOptions="End" />
                         </Grid>
                     </pancakeView:PancakeView>
@@ -87,7 +90,8 @@
 
 
                 <!--  Tracks  -->
-                <CollectionView ItemsSource="{Binding AlbumTracks}">
+                <CollectionView
+                    ItemsSource="{Binding AlbumTracks}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout
@@ -98,13 +102,13 @@
                                     FontSize="12"
                                     HorizontalOptions="StartAndExpand"
                                     Text="{Binding Title}"
-                                    TextColor="Black"
+                                    TextColor="{DynamicResource TextColor}"
                                     VerticalOptions="Center" />
                                 <Label
                                     FontSize="12"
                                     HorizontalOptions="End"
                                     Text="{Binding Duration}"
-                                    TextColor="Black" />
+                                    TextColor="{DynamicResource TextColor}" />
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -116,7 +120,7 @@
         <!--  Playback controls  -->
         <Grid
             Grid.Row="1"
-            Padding="27,0,27,35"
+            Padding="27,10,27,35"
             VerticalOptions="End">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -127,10 +131,10 @@
             <ImageButton
                 Grid.Column="0"
                 Padding="10"
-                BackgroundColor="#E8E8E8"
+                BackgroundColor="{DynamicResource BackgroundColor}"
                 HeightRequest="36"
                 HorizontalOptions="Start"
-                Source="shuffle"
+                Source="{DynamicResource ShuffleIcon}"
                 VerticalOptions="Center" />
             <StackLayout
                 Grid.Column="1"
@@ -141,12 +145,12 @@
                 VerticalOptions="End">
                 <ImageButton
                     Padding="8"
-                    BackgroundColor="#E8E8E8"
+                    BackgroundColor="{DynamicResource BackgroundColor}"
                     HeightRequest="36"
-                    Source="rewind" />
+                    Source="{DynamicResource RewindIcon}" />
                 <pancakeView:PancakeView
                     Padding="2,0,0,0"
-                    BackgroundColor="Black"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
                     CornerRadius="36"
                     Elevation="25"
                     HasShadow="True"
@@ -155,7 +159,7 @@
                     <forms:AnimationView
                         x:Name="PlayPause"
                         Animation="215-play-pause.json"
-                        BackgroundColor="Black"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
                         HorizontalOptions="FillAndExpand"
                         IsPlaying="False"
                         Loop="False"
@@ -164,17 +168,17 @@
                 </pancakeView:PancakeView>
                 <ImageButton
                     Padding="8"
-                    BackgroundColor="#E8E8E8"
+                    BackgroundColor="{DynamicResource BackgroundColor}"
                     HeightRequest="36"
-                    Source="fast_forward" />
+                    Source="{DynamicResource FastForwardIcon}" />
             </StackLayout>
             <ImageButton
                 Grid.Column="2"
                 Padding="10"
-                BackgroundColor="#E8E8E8"
+                BackgroundColor="{DynamicResource BackgroundColor}"
                 HeightRequest="36"
                 HorizontalOptions="End"
-                Source="repeat"
+                Source="{DynamicResource RepeatIcon}"
                 VerticalOptions="Center" />
         </Grid>
     </Grid>

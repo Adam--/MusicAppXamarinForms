@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MusicAppXamarinForms.Themes;
 using Xamarin.Forms;
 
 namespace MusicAppXamarinForms.Views
@@ -35,7 +36,12 @@ namespace MusicAppXamarinForms.Views
 
         private void ScrollView_OnScrolled(object sender, ScrolledEventArgs e)
         {
-            this.BandImageView.TranslationY = bandImageStartPosition + e.ScrollY * 0.2;
+            this.BandImageView.TranslationY = bandImageStartPosition + e.ScrollY * 0.6;
+        }
+
+        private void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
+        {
+            ThemeSwitcher.ToggleTheme();
         }
     }
 }

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    x:Class="MusicAppXamarinForms.Themes.LightTheme"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Color x:Key="BackgroundColor">#E8E8E8</Color>
+
+    <Color x:Key="PrimaryColor">#000000</Color>
+
+    <Color x:Key="TextColor">#202020</Color>
+
+    <Color x:Key="ImageOverlayColor">#000000</Color>
+    <Color x:Key="ImageOverlayTextColor">#FFFFFF</Color>
+
+    <x:String x:Key="ShuffleIcon">shuffle</x:String>
+    <x:String x:Key="RewindIcon">rewind</x:String>
+    <x:String x:Key="FastForwardIcon">fast_forward</x:String>
+    <x:String x:Key="RepeatIcon">repeat</x:String>
+</ResourceDictionary>

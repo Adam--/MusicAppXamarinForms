@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -9,6 +9,18 @@
     <PackageReference Include="Xamarin.Forms" Version="4.2.0.815419" />
     <PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1367" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="1.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Themes\DarkTheme.xaml.cs">
+      <DependentUpon>DarkTheme.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Themes\LightTheme.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

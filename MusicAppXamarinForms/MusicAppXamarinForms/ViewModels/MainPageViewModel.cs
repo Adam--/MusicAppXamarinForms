@@ -16,8 +16,6 @@ namespace MusicAppXamarinForms.ViewModels
 
         public string NowPlayingImageSource => "band";
 
-        public string SongTitle => "Daylight";
-
         public IList<TrackInfo> AlbumTracks =>
             new List<TrackInfo>
             {
@@ -36,7 +34,6 @@ namespace MusicAppXamarinForms.ViewModels
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-
         }
     }
 }
