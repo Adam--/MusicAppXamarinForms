@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MusicAppXamarinForms.Themes;
 using Xamarin.Forms;
 
@@ -13,6 +8,7 @@ namespace MusicAppXamarinForms.Views
     {
         private bool isPaused;
         private double bandImageStartPosition;
+        private double moreIndicatorStartPosition;
 
         public MainPage()
         {
@@ -23,7 +19,8 @@ namespace MusicAppXamarinForms.Views
         {
             base.OnSizeAllocated(width, height);
 
-            this.bandImageStartPosition = this.BandImageView.TranslationY;
+            this.bandImageStartPosition = this.BandImageView.Y;
+            this.moreIndicatorStartPosition = this.MoreIndicator.Y;
         }
 
         private void AnimationView_OnOnClick(object sender, EventArgs e)
@@ -36,7 +33,8 @@ namespace MusicAppXamarinForms.Views
 
         private void ScrollView_OnScrolled(object sender, ScrolledEventArgs e)
         {
-            this.BandImageView.TranslationY = bandImageStartPosition + e.ScrollY * 0.6;
+            this.BandImageView.TranslationY = e.ScrollY * 0.6;
+            this.MoreIndicator.TranslationY = e.ScrollY * 0.6;
         }
 
         private void TapGestureRecognizer_OnTapped(object sender, EventArgs e)

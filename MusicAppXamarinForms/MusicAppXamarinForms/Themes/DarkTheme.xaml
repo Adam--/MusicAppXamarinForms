@@ -17,4 +17,5 @@
     <x:String x:Key="RewindIcon">rewind</x:String>
     <x:String x:Key="FastForwardIcon">fast_forward</x:String>
     <x:String x:Key="RepeatIcon">repeat</x:String>
+    <x:String x:Key="MoreIcon">more_white</x:String>
 </ResourceDictionary>

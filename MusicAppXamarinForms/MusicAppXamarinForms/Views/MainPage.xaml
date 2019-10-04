@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ScrollView Scrolled="ScrollView_OnScrolled">
+        <ScrollView Grid.Row="0" Scrolled="ScrollView_OnScrolled">
             <StackLayout Spacing="0">
                 <!--  Now playing  -->
                 <Grid Padding="0">
@@ -30,7 +30,7 @@
                         CornerRadius="125"
                         Elevation="25"
                         HasShadow="True"
-                        HeightRequest="365"
+                        HeightRequest="300"
                         HorizontalOptions="Center"
                         VerticalOptions="Fill"
                         WidthRequest="250" />
@@ -38,12 +38,12 @@
                     <pancakeView:PancakeView
                         Margin="0,-1,0,25"
                         CornerRadius="0,0,125,125"
-                        HeightRequest="365"
+                        HeightRequest="300"
                         HorizontalOptions="Center"
                         VerticalOptions="Fill"
                         WidthRequest="250">
                         <pancakeView:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped" />
                         </pancakeView:PancakeView.GestureRecognizers>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -88,10 +88,8 @@
                     </pancakeView:PancakeView>
                 </Grid>
 
-
                 <!--  Tracks  -->
-                <CollectionView
-                    ItemsSource="{Binding AlbumTracks}">
+                <CollectionView ItemsSource="{Binding AlbumTracks}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout
@@ -113,9 +111,18 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-
             </StackLayout>
         </ScrollView>
+
+        <pancakeView:PancakeView
+            Grid.Row="0"
+            Padding="0,30,0,0"
+            BackgroundGradientEndColor="{DynamicResource BackgroundColor}"
+            BackgroundGradientStartColor="Transparent"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End">
+            <Image x:Name="MoreIndicator" Source="{DynamicResource MoreIcon}" />
+        </pancakeView:PancakeView>
 
         <!--  Playback controls  -->
         <Grid
