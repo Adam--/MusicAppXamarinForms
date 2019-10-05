@@ -6,45 +6,52 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:rainbows="clr-namespace:Xamarin.Forms.DebugRainbows;assembly=Xamarin.Forms.DebugRainbows"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:viewModels="clr-namespace:MusicAppXamarinForms.ViewModels;assembly=MusicAppXamarinForms"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     Title="{Binding Title}"
     d:DataContext="{d:DesignInstance viewModels:MainPageViewModel,
                                      IsDesignTimeCreatable=True}"
     BackgroundColor="{DynamicResource BackgroundColor}"
     mc:Ignorable="d">
-
-    <Grid>
+    <rainbows:DebugRainbow.IsDebug>False</rainbows:DebugRainbow.IsDebug>
+    <Grid RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ScrollView Grid.Row="0" Scrolled="ScrollView_OnScrolled">
+        <ScrollView
+            x:Name="ScrollView"
+            Grid.Row="0"
+            Scrolled="ScrollView_OnScrolled">
             <StackLayout Spacing="0">
                 <!--  Now playing  -->
-                <Grid Padding="0">
-                    <pancakeView:PancakeView
+                <Grid
+                    x:Name="NowPlayingGrid"
+                    Padding="0"
+                    HeightRequest="300">
+                    <yummy:PancakeView
                         Margin="0,25,0,0"
                         CornerRadius="125"
                         Elevation="25"
                         HasShadow="True"
-                        HeightRequest="300"
                         HorizontalOptions="Center"
                         VerticalOptions="Fill"
                         WidthRequest="250" />
 
-                    <pancakeView:PancakeView
+                    <yummy:PancakeView
                         Margin="0,-1,0,25"
                         CornerRadius="0,0,125,125"
-                        HeightRequest="300"
                         HorizontalOptions="Center"
                         VerticalOptions="Fill"
                         WidthRequest="250">
-                        <pancakeView:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped" />
-                        </pancakeView:PancakeView.GestureRecognizers>
+                        <yummy:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="NowPlaying_OnTapped" />
+                        </yummy:PancakeView.GestureRecognizers>
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
@@ -52,21 +59,40 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Image
-                                x:Name="BandImageView"
+                                x:Name="TrackImageView"
                                 Grid.Row="0"
                                 Grid.RowSpan="3"
                                 Aspect="AspectFill"
                                 HorizontalOptions="Fill"
-                                IsVisible="True"
-                                Source="{Binding NowPlayingImageSource}"
+                                Source="{Binding TrackImageSource}"
+                                VerticalOptions="Fill" />
+                            <Image
+                                x:Name="AlbumImageView"
+                                Grid.Row="0"
+                                Grid.RowSpan="3"
+                                Aspect="AspectFill"
+                                HorizontalOptions="Fill"
+                                Source="{Binding AlbumImageSource}"
                                 VerticalOptions="Fill" />
 
-                            <pancakeView:PancakeView
+                            <yummy:PancakeView
                                 Grid.Row="1"
                                 Grid.RowSpan="2"
                                 BackgroundGradientEndColor="{DynamicResource ImageOverlayColor}"
                                 BackgroundGradientStartColor="Transparent" />
                             <Label
+                                x:Name="TrackTitleLabel"
+                                Grid.Row="1"
+                                Margin="0,20,0,0"
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                HorizontalOptions="Center"
+                                IsVisible="False"
+                                Text="{Binding TrackTitle}"
+                                TextColor="{DynamicResource ImageOverlayTextColor}"
+                                VerticalOptions="End" />
+                            <Label
+                                x:Name="AlbumTitleLabel"
                                 Grid.Row="1"
                                 Margin="0,20,0,0"
                                 FontAttributes="Bold"
@@ -85,11 +111,11 @@
                                 TextColor="{DynamicResource ImageOverlayTextColor}"
                                 VerticalOptions="End" />
                         </Grid>
-                    </pancakeView:PancakeView>
+                    </yummy:PancakeView>
                 </Grid>
 
                 <!--  Tracks  -->
-                <CollectionView ItemsSource="{Binding AlbumTracks}">
+                <CollectionView x:Name="TracksCollectionView" ItemsSource="{Binding AlbumTracks}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout
@@ -114,21 +140,58 @@
             </StackLayout>
         </ScrollView>
 
-        <pancakeView:PancakeView
+        <!--  Show more indicator  -->
+        <yummy:PancakeView
+            x:Name="ShowMoreIndicator"
             Grid.Row="0"
-            Padding="0,30,0,0"
             BackgroundGradientEndColor="{DynamicResource BackgroundColor}"
             BackgroundGradientStartColor="Transparent"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="End">
-            <Image x:Name="MoreIndicator" Source="{DynamicResource MoreIcon}" />
-        </pancakeView:PancakeView>
+            <ImageButton
+                x:Name="MoreIndicator"
+                Padding="0,30,0,0"
+                BackgroundColor="Transparent"
+                Clicked="MoreIndicator_OnClicked"
+                HorizontalOptions="FillAndExpand"
+                Source="{DynamicResource MoreIcon}" />
+        </yummy:PancakeView>
 
         <!--  Playback controls  -->
-        <Grid
+        <StackLayout
             Grid.Row="1"
-            Padding="27,10,27,35"
-            VerticalOptions="End">
+                x:Name="TrackProgressSlider"
+                Padding="0"
+                IsVisible="False"
+                Opacity="0"
+                Spacing="0">
+            <Slider
+                    HorizontalOptions="Center"
+                    MinimumTrackColor="{DynamicResource PrimaryColor}"
+                    ThumbColor="{DynamicResource PrimaryColor}"
+                    WidthRequest="250"
+                    Value="{Binding TrackProgressPercent}" />
+            <Label
+                    Margin="0,0,0,10"
+                    HorizontalOptions="Center"
+                    Text="{Binding TrackProgress}"
+                    TextColor="{DynamicResource PrimaryColor}" />
+        </StackLayout>
+
+        <ProgressBar
+                x:Name="TrackProgressBar"
+                Grid.Row="1"
+                HeightRequest="2"
+                Progress="{Binding TrackProgressPercent}"
+                ProgressColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="Start" />
+
+        <Grid
+                Grid.Row="2"
+                Padding="27,10,27,35"
+                BackgroundColor="{DynamicResource BackgroundColor}"
+                VerticalOptions="End">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -136,57 +199,59 @@
             </Grid.ColumnDefinitions>
 
             <ImageButton
-                Grid.Column="0"
-                Padding="10"
-                BackgroundColor="{DynamicResource BackgroundColor}"
-                HeightRequest="36"
-                HorizontalOptions="Start"
-                Source="{DynamicResource ShuffleIcon}"
-                VerticalOptions="Center" />
+                    Grid.Column="0"
+                    Padding="10"
+                    BackgroundColor="{DynamicResource BackgroundColor}"
+                    Clicked="Shuffle_OnClicked"
+                    HeightRequest="36"
+                    HorizontalOptions="Start"
+                    Source="{DynamicResource ShuffleIcon}"
+                    VerticalOptions="End" />
             <StackLayout
-                Grid.Column="1"
-                Padding="0"
-                HorizontalOptions="Center"
-                Orientation="Horizontal"
-                Spacing="17"
-                VerticalOptions="End">
+                    Grid.Column="1"
+                    Padding="0"
+                    HorizontalOptions="Center"
+                    Orientation="Horizontal"
+                    Spacing="17"
+                    VerticalOptions="End">
                 <ImageButton
-                    Padding="8"
-                    BackgroundColor="{DynamicResource BackgroundColor}"
-                    HeightRequest="36"
-                    Source="{DynamicResource RewindIcon}" />
-                <pancakeView:PancakeView
-                    Padding="2,0,0,0"
-                    BackgroundColor="{DynamicResource PrimaryColor}"
-                    CornerRadius="36"
-                    Elevation="25"
-                    HasShadow="True"
-                    HeightRequest="36"
-                    WidthRequest="34">
-                    <forms:AnimationView
-                        x:Name="PlayPause"
-                        Animation="215-play-pause.json"
+                        Padding="8"
+                        BackgroundColor="{DynamicResource BackgroundColor}"
+                        HeightRequest="36"
+                        Source="{DynamicResource RewindIcon}" />
+                <yummy:PancakeView
+                        Padding="2,0,0,0"
                         BackgroundColor="{DynamicResource PrimaryColor}"
-                        HorizontalOptions="FillAndExpand"
-                        IsPlaying="False"
-                        Loop="False"
-                        OnClick="AnimationView_OnOnClick"
-                        VerticalOptions="FillAndExpand" />
-                </pancakeView:PancakeView>
+                        CornerRadius="36"
+                        Elevation="25"
+                        HasShadow="True"
+                        HeightRequest="36"
+                        WidthRequest="34">
+                    <forms:AnimationView
+                            x:Name="PlayPause"
+                            Animation="215-play-pause.json"
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            HorizontalOptions="FillAndExpand"
+                            IsPlaying="False"
+                            Loop="False"
+                            OnClick="AnimationView_OnOnClick"
+                            VerticalOptions="FillAndExpand" />
+                </yummy:PancakeView>
                 <ImageButton
-                    Padding="8"
-                    BackgroundColor="{DynamicResource BackgroundColor}"
-                    HeightRequest="36"
-                    Source="{DynamicResource FastForwardIcon}" />
+                        Padding="8"
+                        BackgroundColor="{DynamicResource BackgroundColor}"
+                        HeightRequest="36"
+                        Source="{DynamicResource FastForwardIcon}" />
             </StackLayout>
             <ImageButton
-                Grid.Column="2"
-                Padding="10"
-                BackgroundColor="{DynamicResource BackgroundColor}"
-                HeightRequest="36"
-                HorizontalOptions="End"
-                Source="{DynamicResource RepeatIcon}"
-                VerticalOptions="Center" />
+                    Grid.Column="2"
+                    Padding="10"
+                    BackgroundColor="{DynamicResource BackgroundColor}"
+                    HeightRequest="36"
+                    HorizontalOptions="End"
+                    Source="{DynamicResource RepeatIcon}"
+                    VerticalOptions="End" />
         </Grid>
+
     </Grid>
 </ContentPage>

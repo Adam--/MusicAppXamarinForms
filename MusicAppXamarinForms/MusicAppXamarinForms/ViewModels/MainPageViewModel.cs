@@ -14,7 +14,15 @@ namespace MusicAppXamarinForms.ViewModels
 
         public string AlbumTitle => "Grand";
 
-        public string NowPlayingImageSource => "band";
+        public string TrackTitle => "Daylight";
+
+        public string AlbumImageSource => "album";
+
+        public string TrackImageSource => "band";
+
+        public string TrackProgress => "1:54";
+
+        public double TrackProgressPercent => 0.67;
 
         public IList<TrackInfo> AlbumTracks =>
             new List<TrackInfo>
