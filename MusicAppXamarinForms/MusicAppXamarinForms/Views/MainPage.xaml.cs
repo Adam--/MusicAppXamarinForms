@@ -43,6 +43,9 @@ namespace MusicAppXamarinForms.Views
 
         private async void NowPlaying_OnTapped(object sender, EventArgs e)
         {
+            await this.NowPlayingGrid.FadeTo(0.75, 25);
+            await this.NowPlayingGrid.FadeTo(1.0, 25);
+
             if (this.isShowingPlayingView)
             {
                 this.ShowAlbumView();
