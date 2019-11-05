@@ -1,6 +1,6 @@
 # MusicAppXamarinForms
 
-A music app concept built with Xamarin Forms based on the design [MUSICAPPO by Ismail el Azizi](https://dribbble.com/shots/6426851-MUSICAPPO).
+A music app UI concept built with Xamarin Forms based on the design [MUSICAPPO by Ismail el Azizi](https://dribbble.com/shots/6426851-MUSICAPPO).
 
 ![screencapture](screencapture.gif)
 
